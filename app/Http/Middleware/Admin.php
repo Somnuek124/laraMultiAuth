@@ -19,7 +19,7 @@ class Admin
         {
             return $next($request);
         }
-            return redirect('home')->with('error','You dont have admin access');
+            return redirect('index')->with('error','You dont have admin access');
          
         //return $next($request);
     }
