@@ -87,6 +87,11 @@
 
         <div class="content">
             <div class="title m-b-md">
+                @if(\Session::has('success'))
+                <div class="alert alert-success">
+                 <p>{{\Session::get('success') }}</p>
+                </div>
+                @endif
                 Welcome To My Laravel
             </div>
 
@@ -106,7 +111,7 @@
                                     <div class="row">
                                         <div class="basic-form">
                                 
-                                                            <form class="mt-5 mb-5 login-input" method="POST" action="{{ route('login') }}">
+                                                            <form class="mt-5 mb-5 login-input" method="POST" action="{{ route('login') }}" >
                                                                 @csrf
                                         
                                                                 <div class="form-group row">
@@ -186,7 +191,7 @@
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="basic-form">
-                                    <form class="mt-5 mb-5 login-input" method="POST" action="{{ route('register') }}">
+                                    <form class="mt-5 mb-5 login-input" method="POST" action="{{ url('create') }}" enctype="multipart/form-data">
                                         @csrf
                 
                                         <div class="form-group row">
@@ -236,6 +241,13 @@
                 
                                             <div class="col-md-8">
                                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-md-4 col-form-label text-md-right">Select Profile Image</label>
+                                            <div class="col-md-8">
+                                             <input type="file" name="images" />
                                             </div>
                                         </div>
                 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -36,12 +37,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,['name'=>'required','email'=>'required']);
+        $this->validate($request,['name'=>'required','email'=>'required','password'=>'required','images'=>'required|image|max:4000']);
+        
+        $image = $request->file('images');
+        $new_name = rand() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('images'), $new_name);
         $user = new User(
-        [
-            'name' => $request->get('name'),
-            'email' => $request->get('email')
-        ]);
+            [
+                'name'     => $request->get('name'),
+                'email'    => $request->get('email'),
+                'password' => Hash::make($request->get('password')),
+                'images'   => $request->get('images')
+            ]);
         $user->save();
         return redirect()-> route('user.index')->with('success','บันทึกข้อมูลเรียบร้อย');
     }
@@ -80,10 +87,12 @@ class UserController extends Controller
     {
         $this->validate($request,
         ['name' => 'required',
-        'email' => 'required']);
+        'email' => 'required',
+        'password' => 'required']);
         $user = User::find($id);
         $user->name = $request->get('name');
         $user->email = $request->get('email');
+        $user->password = $request->get('password');
         $user->save();
         return redirect()->route('user.index')->with('success','อัพเดตเรียบร้อย');
     }

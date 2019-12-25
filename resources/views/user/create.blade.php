@@ -1,13 +1,10 @@
 @extends('layouts.app')
 @section('content')
-
-    <div class="row">
+<div class="container">
+    <div class="row justify-content-center">
         <div class="col-md-8">
-            <div >
-                <div >{{ __('Register') }}</div>
-
-                <div >
-                    <form method="POST" action="{{ route('register') }}">
+           
+                    <form method="POST" action="{{ url('create') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group row">
@@ -60,6 +57,13 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right">Select Profile Image</label>
+                            <div class="col-md-8">
+                             <input type="file" name="images" />
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
@@ -68,9 +72,7 @@
                             </div>
                         </div>
                     </form>
-                </div>
-            </div>
         </div>
     </div>
-
+</div>
 @endsection

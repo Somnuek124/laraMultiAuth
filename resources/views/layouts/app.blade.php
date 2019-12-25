@@ -22,12 +22,12 @@
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <!-- Pignose Calender -->
-    <link href="./plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
+    <link href="../../plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
     <!-- Chartist -->
-    <link rel="stylesheet" href="./plugins/chartist/css/chartist.min.css">
-    <link rel="stylesheet" href="./plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
+    <link rel="stylesheet" href="../../plugins/chartist/css/chartist.min.css">
+    <link rel="stylesheet" href="../../plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
     <!-- Custom Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
 </head>
 <body>
     <!--*******************
@@ -89,6 +89,8 @@
 								<input type="text" class="form-control" placeholder="Search">
 							</form>
                         </div>
+                                        
+                    
                     </div>
                 </div>
                 <div class="header-right">
@@ -109,9 +111,16 @@
                             @endif
                         @else
                             <li class="icons dropdown d-none d-md-flex">
+                    {{-- --------------------------------------------------- --}}
+                    @if(auth()->user()->is_admin == 1)
+                    <h4>Admin</h4>&nbsp
+                    @else
+                    <h4>Normal User</h4>&nbsp
+                    @endif
+                    {{-- ---------------------------------------------------- --}}
                                 <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
                                     <span class="activity active"></span>
-                                    <img src="images/user/1.png" height="40" width="40" alt="">
+                                    <img src="images/user/form-user.png" height="40" width="40" alt="">
                                 </div>
                                 <a href="javascript:void(0)" class="log-user"  data-toggle="dropdown">
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -147,26 +156,50 @@
         <!--**********************************
             Sidebar start
         ***********************************-->
-        <div class="nk-sidebar">           
-            <div class="nk-nav-scroll">
-                <ul class="metismenu" id="menu">
-                    <li class="nav-label">Dashboard</li>
-                    <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="./index.html">Home 1</a></li>
-                            <li><a href="{{route('index.create')}}">Add User</a></li>
-                            <li><a href="">PDF</a></li>
-                            <li><a href="">QR Code</a></li>
-                            <li><a href="">Export file</a></li>
-                        </ul>
-                    </li>
+        @if(auth()->user()->is_admin == 1)
+                    <div class="nk-sidebar">        
+                        <div class="nk-nav-scroll">
+                            <ul class="metismenu" id="menu">
+                                <li class="nav-label">Dashboard AdminHome</li>
+                                <li>
+                                    <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                        <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
+                                    </a>
+                                    <ul aria-expanded="false">
+                                        <li><a href="/index">Home 1</a></li>
+                                        <li><a href="/create">create</a></li>
+                                        <li><a href="/qrcode">QR Code</a></li>
+                                        <li><a href="">Export file</a></li>
+                                        <li><a href="/image">Upload Image</a></li>
+                                    </ul>
+                                </li>
 
-                </ul>
-            </div>
-        </div>
+                            </ul>
+                        </div>
+                    </div>
+        @else
+                    <div class="nk-sidebar">        
+                        <div class="nk-nav-scroll">
+                            <ul class="metismenu" id="menu">
+                                <li class="nav-label">Dashboard UserHome</li>
+                                <li>
+                                    <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                        <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
+                                    </a>
+                                    <ul aria-expanded="false">
+                                        <li><a href="/index">Home 1</a></li>
+                                        <li><a href="">PDF</a></li>
+                                        <li><a href="">QR Code</a></li>
+                                        <li><a href="">Export file</a></li>
+                                        <li><a href="/image">Upload Image</a></li>
+                                    </ul>
+                                </li>
+            
+                            </ul>
+                        </div>
+                    </div>
+        @endif
+        
         <!--**********************************
             Sidebar end
         ***********************************-->
@@ -177,7 +210,15 @@
         <div class="content-body">
             <!-- row -->
             <div class="container-fluid">
-                @yield('content')
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                @yield('content')
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- #/ container -->
         </div>
@@ -207,31 +248,31 @@
 <!--**********************************
         Scripts
     ***********************************-->
-    <script src="plugins/common/common.min.js"></script>
-    <script src="js/custom.min.js"></script>
-    <script src="js/settings.js"></script>
-    <script src="js/gleek.js"></script>
-    <script src="js/styleSwitcher.js"></script>
+    <script src="../../plugins/common/common.min.js"></script>
+    <script src="../../js/custom.min.js"></script>
+    <script src="../../js/settings.js"></script>
+    <script src="../../js/gleek.js"></script>
+    <script src="../../js/styleSwitcher.js"></script>
 
     <!-- Chartjs -->
-    <script src="./plugins/chart.js/Chart.bundle.min.js"></script>
+    <script src="../../plugins/chart.js/Chart.bundle.min.js"></script>
     <!-- Circle progress -->
-    <script src="./plugins/circle-progress/circle-progress.min.js"></script>
+    <script src="../../plugins/circle-progress/circle-progress.min.js"></script>
     <!-- Datamap -->
-    <script src="./plugins/d3v3/index.js"></script>
-    <script src="./plugins/topojson/topojson.min.js"></script>
-    <script src="./plugins/datamaps/datamaps.world.min.js"></script>
+    <script src="../../plugins/d3v3/index.js"></script>
+    <script src="../../plugins/topojson/topojson.min.js"></script>
+    <script src="../../plugins/datamaps/datamaps.world.min.js"></script>
     <!-- Morrisjs -->
-    <script src="./plugins/raphael/raphael.min.js"></script>
-    <script src="./plugins/morris/morris.min.js"></script>
+    <script src="../../plugins/raphael/raphael.min.js"></script>
+    <script src="../../plugins/morris/morris.min.js"></script>
     <!-- Pignose Calender -->
-    <script src="./plugins/moment/moment.min.js"></script>
-    <script src="./plugins/pg-calendar/js/pignose.calendar.min.js"></script>
+    <script src="../../plugins/moment/moment.min.js"></script>
+    <script src="../../plugins/pg-calendar/js/pignose.calendar.min.js"></script>
     <!-- ChartistJS -->
-    <script src="./plugins/chartist/js/chartist.min.js"></script>
-    <script src="./plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
+    <script src="../../plugins/chartist/js/chartist.min.js"></script>
+    <script src="../../plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
 
-    <script src="./js/dashboard/dashboard-1.js"></script>
+    <script src="../../js/dashboard/dashboard-1.js"></script>
 
 
 </body>

@@ -1,56 +1,42 @@
 @extends('layouts.app')
- 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
- 
-                <div class="card-body">
-                    @if(auth()->user()->is_admin == 1)
-                    <a href="{{url('admin/routes')}}">Admin</a>
-                   
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
-                            <h2> Table User</h2>
-                            @if(\Session::has('success'))
-                            <div class="alert alert-success">
-                            <p>{{ \Session::get('sucess') }}</p>
-                            </div>
-                            @endif
-                                <table class="table table-bordered table-striped">
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                
-
-                                    </tr>
-                                    @foreach ($users as $row)<tr>
-                                    <td>{{$row['id']}}</td> 
-                                    <td>{{$row['name']}}</td> 
-                                    <td>{{$row['email']}}</td>
-            
-                                    </tr>
-                                    @endforeach
-                                </table>
-                        </div>
-                       
-                    </div>
-                    </div>
-
-                    
-
-                    @else
-                    <div class="panel-heading">Normal User</div>
-                    
-
-                    @endif
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+             <!-- row -->
+           @if(auth()->user()->is_admin == 1)
+                                                <h2> Table User</h2>
+                                                @if(\Session::has('success'))
+                                                <div class="alert alert-success">
+                                                <p>{{ \Session::get('success') }}</p>
+                                                </div>
+                                                @endif
+                                                    <table class="table table-bordered table-striped">
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Name</th>
+                                                            <th>Email</th>
+                                                            <th>Profile Image</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                        @foreach ($users as $row)<tr>
+                                                        <td>{{$row['id']}}</td> 
+                                                        <td>{{$row['name']}}</td> 
+                                                        <td>{{$row['email']}}</td>
+                                                        <td><img src="/images/paris.jpg" width="40%" class="img-thumbnail" /></td>
+                                                        <td>
+                                                            <form action="#" method="post">
+                                                                <a href="#" class="btn btn-primary">Show</a>
+                                                                <a href="#" class="btn btn-warning">Edit</a>
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                                            </form>
+                                                        </td>
+                                                        </tr>
+                                                        @endforeach
+                                                    </table>
+                                  
+                                      
+                                        @else
+                                        <div class="panel-heading">Normal User</div>
+                                        @endif
+            <!-- #/ container -->
 @endsection
